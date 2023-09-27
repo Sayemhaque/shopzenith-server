@@ -18,6 +18,14 @@ app.get('/api/products', async (req, res) => {
   res.status(200).json(products)
 });
 
+//get ALL products
+app.get('/api/product/:id', async (req, res) => {
+  const id = req.params.id
+  const products = await Product.findById(id)
+  res.status(200).json(products)
+});
+
+
 
 //get products by category
 app.get('/api/category/:category', async (req, res) => {
