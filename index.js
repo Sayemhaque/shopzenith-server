@@ -18,6 +18,19 @@ app.get('/api/products', async (req, res) => {
   res.status(200).json(products)
 });
 
+// post a new product
+app.post('/api/product', async (req, res) => {
+  try {
+    const newProduct = new Product({...req.body})
+    //save post to db
+    await newProduct.save()
+    res.status(201).json(newProduct);
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: 'Internal server error' });
+  }  
+});
+
 //get ALL products
 app.get('/api/product/:id', async (req, res) => {
   const id = req.params.id
@@ -62,7 +75,7 @@ app.get('/api/products/feature', async (req, res) => {
 app.get('/api/products/trending', async (req, res) => {
   const products = await Product.find({})
   const trendingProducts =
-   products.filter(product => product.sales < 100 && product.sales > 1)
+   products.filter(product => product.sales > 20 && product.sales < 100)
   res.status(200).json(trendingProducts)
 });
 
