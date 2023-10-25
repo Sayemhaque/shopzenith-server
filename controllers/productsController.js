@@ -1,6 +1,5 @@
+
 const Product = require("../model/product.model")
-
-
 
 exports.getAllProducts = async (req, res) => {
     try {
@@ -102,3 +101,6 @@ exports.getTrendingProducts = async (req, res) => {
         res.send(error)
     }
 }
+
+
+
