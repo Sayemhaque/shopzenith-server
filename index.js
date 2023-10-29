@@ -15,38 +15,43 @@ connectToDB()
 
 
 //get ALL products
-const getAllProducts = require("./routes/productsRoute")
+const getAllProducts = require("./routes/routes")
 app.use("/", getAllProducts)
 
 
 // post a new product
-const addAProduct = require("./routes/productsRoute")
+const addAProduct = require("./routes/routes")
 app.use("/", addAProduct)
 
 
 //get single product
-const getSingleProducts = require("./routes/productsRoute")
+const getSingleProducts = require("./routes/routes")
 app.use("/", getSingleProducts)
 
 
 //get products by category
-const getProuductsByCategory = require("./routes/productsRoute")
+const getProuductsByCategory = require("./routes/routes")
 app.use("/", getProuductsByCategory)
 
 
 //get categories
-const getCategories = require("./routes/productsRoute")
+const getCategories = require("./routes/routes")
 app.use("/", getCategories)
 
 
 // get feature products
-const getFeatureProducts = require("./routes/productsRoute")
+const getFeatureProducts = require("./routes/routes")
 app.use("/", getFeatureProducts)
 
 
 //get trending products
-const getTrendingProducts = require("./routes/productsRoute")
+const getTrendingProducts = require("./routes/routes")
 app.use("/", getTrendingProducts)
+
+
+//register user 
+const registerUser = require("./routes/routes")
+app.use("/" , registerUser)
 
 
 
