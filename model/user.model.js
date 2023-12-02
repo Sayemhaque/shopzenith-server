@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-
+const cartItemSchema = require("./cart.model")
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    cart:[cartItemSchema],
     createdAt: {
         type: Date,
         default: Date.now,

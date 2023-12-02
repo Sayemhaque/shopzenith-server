@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors")
 const port = 3000; // You can change this to any port you prefer
 const connectToDB = require("./db/db")
-
+const routes = require("./routes/routes")
 
 //middlewares
 app.use(express.json())
@@ -14,44 +14,9 @@ app.use(cors())
 connectToDB()
 
 
-//get ALL products
-const getAllProducts = require("./routes/routes")
-app.use("/", getAllProducts)
+//routes 
+app.use("/" , routes)
 
-
-// post a new product
-const addAProduct = require("./routes/routes")
-app.use("/", addAProduct)
-
-
-//get single product
-const getSingleProducts = require("./routes/routes")
-app.use("/", getSingleProducts)
-
-
-//get products by category
-const getProuductsByCategory = require("./routes/routes")
-app.use("/", getProuductsByCategory)
-
-
-//get categories
-const getCategories = require("./routes/routes")
-app.use("/", getCategories)
-
-
-// get feature products
-const getFeatureProducts = require("./routes/routes")
-app.use("/", getFeatureProducts)
-
-
-//get trending products
-const getTrendingProducts = require("./routes/routes")
-app.use("/", getTrendingProducts)
-
-
-//register user 
-const registerUser = require("./routes/routes")
-app.use("/" , registerUser)
 
 
 

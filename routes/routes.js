@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllProducts, addAProduct, getSingleProduct, getProuductsByCategory, getCategories, getFeatureProducts, getTrendingProducts } = require("../controllers/productsController");
+const { getAllProducts, addAProduct, getSingleProduct, getProuductsByCategory, getCategories, getFeatureProducts, getTrendingProducts, addToCart } = require("../controllers/productsController");
 const { registerUser, login } = require("../controllers/userController");
 const router = express.Router();
 
@@ -15,6 +15,7 @@ router.get("/api/products/featured", getFeatureProducts)
 router.get("/api/products/trending", getTrendingProducts)
 router.post("/api/register", registerUser)
 router.post("/api/login", login)
+router.post("/api/cart",addToCart) 
 
 
 
