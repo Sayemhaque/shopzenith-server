@@ -6,7 +6,7 @@ require("dotenv").config();
 
 exports.registerUser = async (req, res) => {
     try {
-       
+
         const { username, email, password } = req.body
         const userExist = await User.findOne({ email })
 
@@ -37,21 +37,21 @@ exports.login = async (req, res) => {
         if (!email || !password) {
             return res.status(400).json({ error: "Require every fields" })
         }
-        const user = await User.findOne({email})
+        const user = await User.findOne({ email })
 
         if (!user) {
             return res.status(404).json({ error: "Invalid user or password" })
         }
-         //compare passwords
-         const matchPassword = await bcrypt.compare(password, user.password)
+        //compare passwords
+        const matchPassword = await bcrypt.compare(password, user.password)
         if (!matchPassword) {
             return res.status(404).json({ error: "Invalid user or password" })
         }
         //issue jwt token
-         const token = jwt.sign({user},process.env.JWT_SECRET,{
-            expiresIn:"1h"
-         })
-         res.status(200).json({ message: "login successfully", user: true,token })
+        const token = jwt.sign({ user }, process.env.JWT_SECRET, {
+            expiresIn: "1h"
+        })
+        res.status(200).json({ message: "login successfully", user: true, token })
     } catch (error) {
         res.status(500).json({ error: "internal server error", error })
     }
