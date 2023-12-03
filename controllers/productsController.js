@@ -53,7 +53,7 @@ exports.getProuductsByCategory = async (req, res) => {
 }
 
 
-  
+
 exports.getCategories = async (req, res) => {
     try {
         const categories = await Product.distinct('category');
@@ -71,8 +71,8 @@ exports.getFeatureProducts = async (req, res) => {
             {
                 $match: {
                     sales: {
-                        $gt: 100, 
-                        $lt: 200, 
+                        $gt: 100,
+                        $lt: 200,
                     }
                 }
             }
@@ -89,8 +89,8 @@ exports.getTrendingProducts = async (req, res) => {
             {
                 $match: {
                     sales: {
-                        $gt: 20, 
-                        $lt: 100, 
+                        $gt: 20,
+                        $lt: 100,
                     }
                 }
             }
@@ -104,3 +104,40 @@ exports.getTrendingProducts = async (req, res) => {
 
 
 
+exports.addToCart = async (req, res) => {
+    try {
+        const { userId, productId, quantity } = req.body;
+
+        // Validate that userId and productId are provided
+        if (!userId || !productId || !quantity) {
+            return res.status(400).json({ error: 'userId, productId, and quantity are required.' });
+        }
+
+        // Find the user by userId
+        const user = await User.findById(userId);
+
+        // Check if the user exists
+        if (!user) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        // Check if the product exists in the user's cart
+        const existingCartItemIndex = user.cart.findIndex(item => item.product.toString() === productId);
+
+        if (existingCartItemIndex !== -1) {
+            // If the product already exists, update the quantity
+            user.cart[existingCartItemIndex].quantity += quantity;
+        } else {
+            // If the product does not exist, add a new cart item
+            user.cart.push({ product: productId, quantity });
+        }
+
+        // Save the updated user document
+        await user.save();
+
+        res.status(200).json({ message: 'Item added to the cart successfully.' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+}
